@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 
 public class ATM {
 	
+	private static Formatter x;
+	
 	public static void main(String[] args){
 		
 		
@@ -22,49 +24,33 @@ public class ATM {
 		//add a user/account
 		User aUser = theBank.addUser("Student", "Carroll", "1234");
 		
-		openFile();
-		addRecords();
-		closeFile();
+		//records transaction occurrence to file
+		writeFile();
+		
 		//add a checking account for our user
 		Account newAccount = new Account("Checking", aUser, theBank);
 		aUser.addAccount(newAccount);
 		theBank.addAccount(newAccount);
 		
 		User curUser;
+			
+		curUser = ATM.mainMenuPrompt(theBank);
+
+		//JFrame
+		Menu things = new Menu(curUser);
 	
-			//stay in the log in prompt until a success
-			
-			curUser = ATM.mainMenuPrompt(theBank);
-
-			Menu things = new Menu(curUser);
-			//things.method();
-			
-			//stay in main menu until user quits
-		//ATM.printUserMenu(curUser);
-			
-
+	}
+		   
+	//creates a file
+	public static void writeFile(){
 		
+		try{x = new Formatter("file.txt");} 
+		catch(Exception e){System.out.println("Error");}
+		
+		x.format("New User Created.");
+		x.close();
 	}
 	
-	private static Formatter x;
-		
-		public static void openFile(){
-			try{
-				x = new Formatter("file.txt");
-			}
-			catch(Exception e){
-				System.out.println("You Errored");
-			}
-		}
-	
-		public static void addRecords(){
-			x.format("New User Created.");
-		}
-		
-		public static void closeFile(){
-			x.close();
-		}
-
 	//bank and Scanner
 	private static User mainMenuPrompt(Bank theBank) {
 		
@@ -100,42 +86,37 @@ public class ATM {
 	static void depositFunds(User theUser) {
 		
 		//initializes
-				int toAcct;
-				double amount;
-				double acctBal;
-				String memo;
+		int toAcct;
+		double amount;
+		double acctBal;
+		String memo;
 				
-				//get account to transfer from
-				do {
-					toAcct = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the number (1 for Checking, 2 for Savings) of the account\n" +
-							"to deposit to: ", theUser.numAccounts()))-1;
-					//toAcct = sc.nextInt()-1;
-				if (toAcct < 0 || toAcct >= theUser.numAccounts()){
-					JOptionPane.showMessageDialog(null, "Invalid account, please try a gain");
-					}
-				}while (toAcct < 0 || toAcct >= theUser.numAccounts());
-				acctBal = theUser.getAcctBalance(toAcct);
-				
-				//get the amount to transfer
-				do{
-					amount = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the amount to deposit  (max $"+ acctBal +"):",
-							acctBal));
-					//amount = sc.nextDouble();
-					if (amount < 0){
-						JOptionPane.showMessageDialog(null,"Amount must be greater than zero.");
-					}
-				}while(amount < 0);
-				
-				//gobble rest of previous input line
-				//sc.nextLine();
-				
-				//get a memo
-				memo = (JOptionPane.showInputDialog(null,"Enter a memo: "));
-				//memo = sc.nextLine();
-				
-				//do the withdraw
-				theUser.addAcctTransaction(toAcct, amount, memo);
+		//get account to transfer from
+		do {
+			toAcct = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the number (1 for Checking, 2 for Savings) of the account\n" +
+					"to deposit to: ", theUser.numAccounts()))-1;
+			
+		if (toAcct < 0 || toAcct >= theUser.numAccounts()){
+			JOptionPane.showMessageDialog(null, "Invalid account, please try a gain");
+			}
+		}while (toAcct < 0 || toAcct >= theUser.numAccounts());
+		acctBal = theUser.getAcctBalance(toAcct);
 		
+		//get the amount to transfer
+		do{
+			amount = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the amount to deposit (min $0.0):"));
+			
+			if (amount < 0){
+				JOptionPane.showMessageDialog(null,"Amount must be greater than zero.");
+			}
+		}while(amount < 0);
+		
+		//get a memo
+		memo = (JOptionPane.showInputDialog(null,"Enter a memo: "));
+		
+		//do the withdraw
+		theUser.addAcctTransaction(toAcct, amount, memo);
+
 	}
 
 	//process a withdraw from account
@@ -148,10 +129,10 @@ public class ATM {
 		String memo;
 		
 		//get account to transfer from
-do {
-	fromAcct = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the number (1 for Checking, 2 for Savings) of the account\n" +
+		do {
+			fromAcct = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the number (1 for Checking, 2 for Savings) of the account\n" +
 					"to withdraw from: ", theUser.numAccounts()))-1;
-			//fromAcct = sc.nextInt()-1;
+			
 		if (fromAcct < 0 || fromAcct >= theUser.numAccounts()){
 			JOptionPane.showInputDialog(null,"Invalid account, please try a gain");
 			}
@@ -162,21 +143,17 @@ do {
 		do{
 			amount = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the amount to withdraw (max $" + acctBal + "):",
 					acctBal));
-			//amount = sc.nextDouble();
+			
 			if (amount < 0){
 				JOptionPane.showMessageDialog(null,"Amount must be greater than zero.");
 			}else if (amount > acctBal){
 				JOptionPane.showMessageDialog(null,"Amount must not be greater than\n" +
-						"balance of $%.02f\n"+ acctBal);
+						"balance of "+ acctBal);
 			}
 		}while(amount < 0 || amount > acctBal);
 		
-		//gobble rest of previous input line
-		//sc.nextLine();
-		
 		//get a memo
 		memo = (JOptionPane.showInputDialog(null,"Enter a memo: "));
-		//memo = sc.nextLine();
 		
 		//do the withdraw
 		theUser.addAcctTransaction(fromAcct, -1 * amount, memo);
@@ -186,6 +163,7 @@ do {
 		
 		int theAcct;
 		
+		//get account to transfer from
 		do{
 			theAcct = Integer.parseInt(JOptionPane.showInputDialog(null,"Enter the number (1 for Checking, 2 for Savings) of the account\n" +
 		" whose transactions you want to see ", theUser.numAccounts()))-1;
@@ -247,14 +225,4 @@ do {
 				"Transfer to account: ", theUser.getAcctUUID(toAcct)));
 		
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
 }

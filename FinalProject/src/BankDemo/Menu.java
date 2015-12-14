@@ -18,25 +18,16 @@ import javax.swing.ImageIcon;
 
 public class Menu extends JFrame {
 
-	/**
-	 * 
-	 */
+	//initializes
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private User currentUser;
 	
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 */
 	public Menu(User theUser) {
+		
 		setForeground(Color.BLUE);
 		currentUser = theUser;
 
-		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("\\\\mark14\\mredman$\\My Documents\\My Pictures\\bank-512.png"));
 		setBackground(Color.BLUE);
 		

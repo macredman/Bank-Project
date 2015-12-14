@@ -17,8 +17,10 @@ public class User {
 	
 	//User constructor
 	public User(String firstName, String lastName, String pin, Bank theBank){
+		
 		//set User's name
 		this.firstName = firstName;
+		
 		//set pin's MD5 hash
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
@@ -97,10 +99,12 @@ public class User {
 		return this.accounts.get(acctIdx).getBalance();
 	}
 
+	//gets account uuid
 	public String getAcctUUID(int acctIdx) {
 		return this.accounts.get(acctIdx).getUUID();
 	}
 
+	//adds transaction
 	public void addAcctTransaction(int acctIdx, double amount, String memo) {
 		this.accounts.get(acctIdx).addTransaction(amount, memo);
 	}

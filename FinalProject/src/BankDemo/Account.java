@@ -43,6 +43,7 @@ public class Account {
 		}
 	}
 	
+	//get balance from transaction
 	public double getBalance(){
 		double balance = 0;
 		for (Transaction t : this.transactions){
@@ -61,6 +62,7 @@ public class Account {
 		}
 	}
 
+	//adds transaction
 	public void addTransaction(double amount, String memo) {
 		
 		//create new transaction object & add to list

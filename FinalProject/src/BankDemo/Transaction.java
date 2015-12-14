@@ -3,6 +3,8 @@ package BankDemo;
 import java.util.Date;
 
 public class Transaction {
+	
+	//initializes
 	private double amount;
 	private Date timestamp;
 	private String memo;
@@ -20,16 +22,16 @@ public class Transaction {
 	//create new transaction and the memo
 	public Transaction(double amount2, String memo, Account inAccount){
 		
-	//call 2-arg constructor first
-	this(amount2, inAccount);
-	
-	//set memo
-	this.memo = memo;
+		//call 2-arg constructor first
+		this(amount2, inAccount);
+		
+		//set memo
+		this.memo = memo;
 	}
 
 	//get amount of transaction
-	public double getAmount() {
-		return this.amount;
+		public double getAmount() {
+			return this.amount;
 	}
 	
 	//get a summary string
@@ -40,7 +42,7 @@ public class Transaction {
 		}else{
 			return String.format("%s : $(%.02f) : %s", 
 					this.timestamp.toString(), this.amount, this.memo);
-	}
+		}
 	
 	}
 }

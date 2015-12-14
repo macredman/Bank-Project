@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Bank {
 
+	//initializes
 	private String name;
 	private ArrayList<User> users;
 	private ArrayList<Account> accounts;
@@ -113,6 +114,7 @@ public class Bank {
 		return null;
 	}
 
+	//gets the name
 	public String getName(){
 		return this.name;
 	}
