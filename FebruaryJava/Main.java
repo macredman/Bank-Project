@@ -1,3 +1,7 @@
+/* Mackenzie Redman
+*  2.4.16
+*  Deitel book
+*/
 
 public class Main {
 
@@ -10,9 +14,9 @@ public class Main {
 		mySubClassObject.getMessage();
 		myAnotherSubClassObject.getMessage();
 		
-		mySuperClassObject.setMessage("Hey homie this is a SUPERCLASS!");
-		mySubClassObject.setMessage("Hey homie this is a SUBCLASS!");
-		myAnotherSubClassObject.setMessage("Hey homie this is a ANOTHERSUBCLASS!");
+		mySuperClassObject.setMessage("Original SuperClass Interface");
+		mySubClassObject.setMessage("SubClass Interface");
+		myAnotherSubClassObject.setMessage("AnotherSubClass Interface" + "\n");
 
 		mySuperClassObject.getMessage();
 		mySubClassObject.getMessage();
