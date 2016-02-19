@@ -17,6 +17,15 @@ public class Main {
 		mySuperClassObject.getMessage();
 		mySubClassObject.getMessage();
 		myAnotherSubClassObject.getMessage();
+		
+		mySubClassObject.getID();
+	
+		mySubClassObject.getArray();
+		mySubClassObject.setArray();
+		
+		myAnotherSubClassObject.test();
+		myAnotherSubClassObject.testInputType();
+		myAnotherSubClassObject.testZero();
 	}
 
 }
